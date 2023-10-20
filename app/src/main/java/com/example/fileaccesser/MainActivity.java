@@ -24,21 +24,19 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButton storageBtn = findViewById(R.id.storage_btn);
 
-        storageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkPermission()){
-                    //permission allowed
-                    Intent intent = new Intent(MainActivity.this, FileListActivity.class);
-                    String path = Environment.getExternalStorageDirectory().getPath();
-                    Log.d(path, "get path: ");
-                    intent.putExtra("path",path);
-                    startActivity(intent);
-                }else{
-                    //permission not allowed
-                    requestPermission();
+        storageBtn.setOnClickListener(v -> {
+            if(checkPermission()){
+                //permission allowed
+                Intent intent = new Intent(MainActivity.this, FileListActivity.class);
+                String path = Environment.getExternalStorageDirectory().getPath();
+                Log.d(path, "get path: ");
+                intent.putExtra("path",path);
+                startActivity(intent);
+            }else{
+                //permission not allowed
+                Log.d("not allow", "permission");
+                requestPermission();
 
-                }
             }
         });
 
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            Log.d("should be granted here", "permission");
             Toast.makeText(MainActivity.this,"Storage permission is requires,please allow from settings",Toast.LENGTH_SHORT).show();
         }else
             ActivityCompat.requestPermissions(MainActivity.this,new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},111);
