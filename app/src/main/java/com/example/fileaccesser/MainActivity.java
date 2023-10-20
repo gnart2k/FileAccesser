@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 import android.Manifest;
 import android.view.View;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     //permission allowed
                     Intent intent = new Intent(MainActivity.this, FileListActivity.class);
                     String path = Environment.getExternalStorageDirectory().getPath();
+                    Log.d(path, "get path: ");
                     intent.putExtra("path",path);
                     startActivity(intent);
                 }else{
@@ -42,14 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     private boolean checkPermission(){
         int result = ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(result == PackageManager.PERMISSION_GRANTED){
-            return true;
-        }else
-            return false;
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission(){
