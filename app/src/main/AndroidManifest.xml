@@ -20,6 +20,12 @@
         android:theme="@style/Theme.FileAccesser"
         tools:targetApi="31">
         <activity
+            android:name=".ViewTextActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyAdapter"
             android:exported="true" />
         <activity

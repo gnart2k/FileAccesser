@@ -1,8 +1,12 @@
 package com.example.fileaccesser;
 
 
+
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -10,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -53,27 +58,48 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedFile.isDirectory()){
+                if (selectedFile.isDirectory()) {
                     Intent intent = new Intent(context, FileListActivity.class);
                     String path = selectedFile.getAbsolutePath();
-                    intent.putExtra("path",path);
+                    intent.putExtra("path", path);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                }else{
+                } else {
                     try {
-                        Intent intent = new Intent();
-                        intent.setAction(android.content.Intent.ACTION_VIEW);
-                        String type = "image/*";
-                        Log.d("path", selectedFile.getAbsolutePath());
-                        Uri uri = Uri.parse(selectedFile.getAbsolutePath());
-                        intent.setDataAndType(uri, type);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                    }catch (Exception e){
-                        Toast.makeText(context.getApplicationContext(),"Cannot open the file",Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent();
+//                        intent.setAction(android.content.Intent.ACTION_VIEW);
+                        getMimeType(selectedFile.getAbsolutePath()); // Get MIME type
+
+//                        if (type != null) {
+//                            intent.setDataAndType(Uri.parse(selectedFile.getAbsolutePath()), type);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            context.startActivity(intent);
+//                        } else {
+//                            Toast.makeText(context.getApplicationContext(), "Cannot open the file", Toast.LENGTH_SHORT).show();
+//                        }
+                    } catch (Exception e) {
+                        Toast.makeText(context.getApplicationContext(), "Cannot open the file", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
+
+            private void getMimeType(String filePath) {
+                String ext = MimeTypeMap.getFileExtensionFromUrl(filePath);
+
+                // Handle cases where the MIME type is null
+                Log.d("filePath", filePath);
+
+                    if (ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("png")) {
+                        Log.d("case image", "");
+                        Intent intent = new Intent(context, ViewImageActivity.class);
+                        intent.putExtra("filePath", filePath);
+                        context.startActivity(intent);
+                    } else if (ext.equalsIgnoreCase("mp4") || ext.equalsIgnoreCase("3gp")) {
+                    } else if (ext.equalsIgnoreCase("txt")) {
+                    }else if (ext.equalsIgnoreCase("mp3") || ext.equalsIgnoreCase("wav")){
+                    }
+                }
+
         });
 
 }
@@ -84,7 +110,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView textView;
         ImageView imageView;
