@@ -86,10 +86,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             private void getMimeType(String filePath) {
                 String ext = MimeTypeMap.getFileExtensionFromUrl(filePath);
 
-                // Handle cases where the MIME type is null
                 Log.d("filePath", filePath);
+                Log.d("file type", ext);
+                String fileType = filePath.substring(filePath.lastIndexOf(".")+1);
 
-                    if (ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("png")) {
+                if (ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("png")) {
                         Log.d("case image", "");
                         Intent intent = new Intent(context, ViewImageActivity.class);
                         intent.putExtra("filePath", filePath);
@@ -99,7 +100,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                         Intent intent = new Intent(context, ViewTextActivity.class);
                         intent.putExtra("filePath", filePath);
                         context.startActivity(intent);
-                    }else if (ext.equalsIgnoreCase("mp3") || ext.equalsIgnoreCase("wav")){
+                    }else if (fileType.equalsIgnoreCase("mp3") || fileType.equalsIgnoreCase("wav")){
+                        Log.d("case mp3", "");
+                        Intent intent = new Intent(context, MusicPlayActivity.class);
+                        intent.putExtra("filePath", filePath);
+                        context.startActivity(intent);
                     }
                 }
 
