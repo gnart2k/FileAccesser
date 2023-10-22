@@ -96,6 +96,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                         context.startActivity(intent);
                     } else if (ext.equalsIgnoreCase("mp4") || ext.equalsIgnoreCase("3gp")) {
                     } else if (ext.equalsIgnoreCase("txt")) {
+                        Intent intent = new Intent(context, ViewTextActivity.class);
+                        intent.putExtra("filePath", filePath);
+                        context.startActivity(intent);
                     }else if (ext.equalsIgnoreCase("mp3") || ext.equalsIgnoreCase("wav")){
                     }
                 }

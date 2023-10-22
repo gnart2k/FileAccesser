@@ -23,10 +23,7 @@ public class ViewTextActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         String filePath = getIntent().getStringExtra("filePath");
         assert filePath != null;
-        File textFile = new File(filePath);
-        if(textFile.exists()){
-        }
-
+        textView.setText(readTextFile(filePath));
         }
 
     public String readTextFile(String absoluteFilePath) {
