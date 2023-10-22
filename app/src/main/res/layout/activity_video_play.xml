@@ -1,4 +1,3 @@
-<!-- activity_main.xml -->
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,31 +9,42 @@
 
     <VideoView
         android:id="@+id/videoView"
+        android:layout_width="366dp"
+        android:layout_height="390dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play"
         android:layout_below="@id/videoView"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="31dp" />
 
-    <Button
-        android:id="@+id/pauseButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pause"
-        android:layout_below="@id/playButton"
-        android:layout_marginTop="16dp" />
+        android:layout_below="@id/videoView"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop"
-        android:layout_below="@id/pauseButton"
-        android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play" />
+
+        <Button
+            android:id="@+id/pauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop" />
+    </LinearLayout>
+
+
 </RelativeLayout>
